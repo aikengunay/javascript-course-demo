@@ -1,134 +1,95 @@
-console.log(`Fundamentals Part 2`);
+// // Array Methods -  add elements
+// const friends = ["Michael", "Steven", "Peter"];
 
-// Functions - Declaration and Expressions
-console.log(`=== FUNCTIONS ===`);
+// // array iteration - loops
 
-function logger() {
-  console.log("This function is working");
-}
+// for (let i = 0; i < friends.length; i++) {
+//   console.log(friends[i]);
+// }
 
-logger();
-logger();
-logger();
+// friends.forEach(function (friend, index) {
+//   console.log(`${index}: ${friend}`);
+// });
 
-function fruitProcessor(apples, oranges) {
-  console.log(apples, oranges);
-  const juice = `Juice with ${apples} apples and ${oranges} oranges`;
-  return juice;
-}
+// const grades = [85, 92, 50, 45, 88, 74];
+// let total = 0;
 
-const appleJuice = fruitProcessor(5, 0);
-console.log(appleJuice);
+// for (let i = 0; i < grades.length; i++) {
+//   total += grades[i];
+// }
 
-const appleOrangeJuice = fruitProcessor(2, 4);
-console.log(appleOrangeJuice);
+// const average = total / grades.length;
+// console.log(`Average grade: ${average.toFixed(2)}`);
 
-// do not do this anymore
-const juice1 = `Juice with 5 apples..`;
-const juice2 = `Juioce with 3 apples...`;
-
-// function expressions
-const calcAge = function (birthYear) {
-  return 2037 - birthYear;
-};
-
-const age1 = calcAge(2000);
-console.log(age1);
-
-function calcAge2(birthYear, currentYear) {
-  const age = currentYear - birthYear;
-  return age;
-}
-
-const myAge = calcAge2(2000, 2025);
-const someonesAge = calcAge2(1995, 2025);
-
-console.log(`I am ${myAge} years old`);
-console.log(`he is ${someonesAge} years old`);
-
-console.log(calcAge2(2000));
-
-function introduce(firstName, lastName, age) {
-  const introduction = `Hi, I'm ${firstName} ${lastName} and I'm ${age} years old.`;
-  return introduction;
-}
-
-console.log(introduce("Jonas", "Schmedtmann", 46));
-console.log(introduce("Sarah"));
-// Missing parameters become undefined
-
-function calcAge3(birthYear) {
-  return 2025 - birthYear;
-}
-
-function yearsUntilRetirement(birthYear, firstName) {
-  const age = calcAge3(birthYear);
-  const retirement = 65 - age;
-
-  if (retirement > 0) {
-    return `${firstName} retires in ${retirement} years`;
-  } else {
-    return `${firstName} has already retired`;
-  }
-}
-
-console.log(yearsUntilRetirement(2000, "Aiken"));
-console.log(yearsUntilRetirement(1950, "Mark"));
-
-// global scrope
-const globalVar = `I am global`;
-
-function testScope() {
-  const localVar = `I am local`;
-  console.log(globalVar);
-  console.log(localVar);
-}
-
-testScope();
-console.log(globalVar);
-// console.log(localVar);
-
-const userName = "Jonas"; // Global
-
-function createWelcomeMessage(user) {
-  const message = `Welcome back, ${user}!`; // Local to function
-  const timestamp = new Date().toLocaleTimeString(); // Local to function
-
-  return `${message} Current time: ${timestamp}`;
-}
-
-console.log(createWelcomeMessage(userName));
-// console.log(message); // Error - message is local to function
+// let passCount = 0;
+// grades.forEach((grade) => {
+//   if (grade >= 70) passCount++;
+// });
+// console.log(`${passCount} out of ${grades.length} students passed`);
 
 ////////////////////////////////////
-// Coding Challenge #1
+// Coding Challenge #2 - Student Grade Manager
 
-// Function to calculate average of 3 scores
-function calcAverage(score1, score2, score3) {
-  return (score1 + score2 + score3) / 3;
-}
+const grades = [78, 85, 92, 67, 88, 95, 73, 82];
 
-// Function to check winner
-function checkWinner(avgDolphins, avgKoalas) {
+// Function to calculate average
+function calculateAverage(grades) {
   // Your code here
-  // Remember: team needs DOUBLE the score to win
-  // Use template literals for nice output
-
-  if (avgDolphins >= 2 * avgKoalas) {
-    return `Dolphins win (${avgDolphins} vs. ${avgKoalas})`;
-  } else if (avgKoalas >= 2 * avgDolphins) {
-    return `Koalas win (${avgKoalas} vs. ${avgDolphins})`;
-  } else {
-    return `No team wins! Dolphins ${avgDolphins}, Koalas: ${avgKoalas}`;
+  // Hint: Sum all grades, divide by length
+  let sum = 0;
+  for (let i = 0; i < grades.length; i++) {
+    sum += grades[i];
   }
+  return sum / grades.length;
 }
 
-// Test Data 1
-let scoreDolphins = calcAverage(44, 23, 71);
-let scoreKoalas = calcAverage(65, 54, 49);
-console.log(checkWinner(scoreDolphins, scoreKoalas));
+// Function to find highest grade
+function findHighestGrade(grades) {
+  // Your code here
+  // Hint: Start with first grade, compare with each subsequent grade
+  let highest = grades[0];
+  for (let i = 1; i < grades.length; i++) {
+    if (grades[i] > highest) {
+      highest = grades[i];
+    }
+  }
+  return highest;
+}
 
-// Test Data 2
-scoreDolphins = calcAverage(85, 54, 41);
-scoreKoalas = calcAverage(23, 34, 27);
-console.log(checkWinner(scoreDolphins, scoreKoalas));
+// Function to find lowest grade
+function findLowestGrade(grades) {
+  // Your code here
+  // Hint: Similar to highest, but use < comparison
+  let lowest = grades[0];
+  for (let i = 1; i < grades.length; i++) {
+    if (grades[i] < lowest) {
+      lowest = grades[i];
+    }
+  }
+  return lowest;
+}
+
+// Function to count passing students
+function countPassing(grades, passingGrade) {
+  // Your code here
+  // Hint: Counter pattern - increment when condition is met
+  let count = 0;
+  for (let i = 0; i < grades.length; i++) {
+    if (grades[i] >= passingGrade) {
+      count++;
+    }
+  }
+  return count;
+}
+
+// Generate complete report
+const average = calculateAverage(grades);
+const highest = findHighestGrade(grades);
+const lowest = findLowestGrade(grades);
+const passing = countPassing(grades, 70);
+
+console.log("=== GRADE REPORT ===");
+console.log(`Average: ${average.toFixed(2)}`);
+console.log(`Highest: ${highest}`);
+console.log(`Lowest: ${lowest}`);
+console.log(`Passing students: ${passing} out of ${grades.length}`);
