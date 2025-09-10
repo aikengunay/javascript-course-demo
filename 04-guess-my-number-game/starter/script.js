@@ -65,10 +65,23 @@ document.querySelector('.check').addEventListener('click', function () {
   const guess = Number(document.querySelector('.guess').value);
   console.log('Player guessed:', guess);
 
+  // if you did not input any number or data sa input, show no number
+  if (!guess) {
+    document.querySelector('.message').textContent = 'No Number';
+    return;
+  }
+
+  if (guess < 1 || guess > 20) {
+    document.querySelector('.message').textContent =
+      'Number must be between 1 and 20';
+    return;
+  }
+
   if (guess === secretNumber) {
     console.log('Correct guess');
     // document.querySelector('.message').textContent = '🎉 Correct Number';
     document.querySelector('.number').textContent = secretNumber;
+    document.body.style.backgroundColor = 'green';
     if (score > highscore) {
       highscore = score;
       document.querySelector('.highscore').textContent = highscore;
@@ -90,6 +103,7 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.guess').disabled = true;
       // disabled button click
       document.querySelector('.check').disabled = true;
+      document.body.style.backgroundColor = 'red';
     }
   } else if (guess < secretNumber) {
     console.log('Too low');
@@ -103,6 +117,7 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.guess').disabled = true;
       // disabled button click
       document.querySelector('.check').disabled = true;
+      document.body.style.backgroundColor = 'red';
     }
   }
 });
@@ -114,7 +129,9 @@ document.querySelector('.again').addEventListener('click', function () {
   console.log('Your new secret number after restart:', secretNumber);
   document.querySelector('.message').textContent = 'Start quessing...';
   document.querySelector('.number').textContent = '?';
+  document.querySelector('.score').textContent = score;
   document.querySelector('.guess').value = '';
   document.querySelector('.guess').disabled = false;
   document.querySelector('.check').disabled = false;
+  document.body.style.backgroundColor = '';
 });
