@@ -41,12 +41,53 @@ document.querySelector('.check').addEventListener('click', function () {
 
   if (guess === secretNumber) {
     console.log('Your guess is correct!');
-    document.querySelector('.message').textContent = 'Correct Number 🎉';
+    // document.querySelector('.message').textContent = 'Correct Number 🎉';
     document.querySelector('.number').textContent = secretNumber;
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector('.highscore').textContent = highscore;
+    }
+    document.querySelector('.message').textContent = 'You have won!';
+    document.querySelector('.guess').disabled = true;
+    document.querySelector('.check').disabled = true;
   } else if (guess > secretNumber) {
     console.log('Too high!');
     document.querySelector('.message').textContent = 'Too high!!! 🔥';
+    score--;
+    document.querySelector('.score').textContent = score;
+    if (score < 1) {
+      document.querySelector('.message').textContent =
+        'You have lost, press again!';
+      document.querySelector('.number').textContent = secretNumber;
+      document.querySelector('.guess').disabled = true;
+      document.querySelector('.check').disabled = true;
+    }
   } else if (guess < secretNumber) {
     document.querySelector('.message').textContent = 'Too low! 🥹';
+    score--;
+    document.querySelector('.score').textContent = score;
+    if (score < 1) {
+      document.querySelector('.message').textContent =
+        'You have lost, press again!';
+      document.querySelector('.number').textContent = secretNumber;
+      document.querySelector('.guess').disabled = true;
+      document.querySelector('.check').disabled = true;
+    }
   }
+});
+
+document.querySelector('.again').addEventListener('click', function () {
+  score = 20;
+  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  console.log('New secret number is:', secretNumber);
+  //restart the message display
+  document.querySelector('.message').textContent = 'Start guessing';
+  // restart question mark or the reveal secret number
+  document.querySelector('.number').textContent = '?';
+  // update score in the ui
+  document.querySelector('.score').textContent = score;
+  // restart guess input value
+  document.querySelector('.guess').value = '';
+  document.querySelector('.guess').disabled = false;
+  document.querySelector('.check').disabled = false;
 });
